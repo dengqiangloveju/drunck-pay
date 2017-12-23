@@ -12,7 +12,7 @@ import tk.mybatis.mapper.entity.Example;
 
 @SuppressWarnings({"unchecked","rawtypes"})
 public abstract class BaseServiceImpl implements BaseService {
-	/*private BaseMapper baseMapper;
+	/*private BaseMapper baseMapper; 
 
 	public void setBaseMapper(BaseMapper baseMapper) {
 		this.baseMapper = baseMapper;
