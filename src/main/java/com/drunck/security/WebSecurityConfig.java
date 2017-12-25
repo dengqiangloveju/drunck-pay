@@ -7,23 +7,27 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
-	private UserDetailsService userDetailsService;
+	private MyUserDetailService myUserDetailService;
+    @Resource
+    private MySecurityFilter mySecurityFilter;
 	
 	@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+        auth.userDetailsService(myUserDetailService);
     }
 	
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
+		//解决不能加载iframe问题
+		http.headers().frameOptions().disable();
         http.authorizeRequests()
-		        .antMatchers("/ui/**")
+		        .antMatchers("/ui/**","/page/**")
 				.permitAll()
                 .anyRequest().authenticated() //任何请求,登录后可以访问
                 .and()
@@ -42,5 +46,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/sys/loginfrom")
                 .permitAll(); //注销行为任意访问
+        http.addFilterBefore(mySecurityFilter, FilterSecurityInterceptor.class);
     }
 }

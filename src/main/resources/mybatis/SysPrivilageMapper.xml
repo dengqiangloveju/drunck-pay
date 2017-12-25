@@ -4,6 +4,7 @@
 	<resultMap id="BaseResultMap" type="com.drunck.domain.SysPrivilage">
 		<id column="id" property="id" jdbcType="VARCHAR" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="res_key" property="resKey" jdbcType="VARCHAR" />
 		<result column="url" property="url" jdbcType="VARCHAR" />
 		<result column="description" property="description" jdbcType="VARCHAR" />
 		<result column="parent_id" property="parentId" jdbcType="VARCHAR" />
@@ -11,7 +12,14 @@
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, name, url, description, parent_id, create_time,
+		id, name, res_key, url, description, parent_id, create_time,
 		update_time
 	</sql>
+	<select id="queryPrivilagesByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+		<![CDATA[SELECT p.id,p.name,p.res_key,p.url,p.description,p.create_time,p.update_time FROM sys_privilage p 
+		LEFT JOIN sys_role_privilage rp ON p.id=rp.privilage_id 
+		LEFT JOIN sys_user_role ur ON rp.role_id=ur.role_id 
+		LEFT JOIN sys_admin u ON ur.user_id=u.id 
+		WHERE u.id=#{userId} ]]>
+	</select>
 </mapper>

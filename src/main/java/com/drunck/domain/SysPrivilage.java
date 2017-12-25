@@ -14,6 +14,8 @@ public class SysPrivilage implements Serializable{
     private String id;
 
     private String name;
+    
+    private String resKey;
 
     private String url;
 
@@ -41,7 +43,15 @@ public class SysPrivilage implements Serializable{
         this.name = name == null ? null : name.trim();
     }
 
-    public String getUrl() {
+	public String getResKey() {
+		return resKey;
+	}
+
+	public void setResKey(String resKey) {
+		this.resKey = resKey;
+	}
+
+	public String getUrl() {
         return url;
     }
 
