@@ -24,6 +24,7 @@ public class ScheduleJobController {
 	@RequestMapping("list")
 	public ModelAndView list(String jobGroup, String jobName, PageInfo pageInfo) {
 		ModelAndView view = new ModelAndView();
+
 		SysScheduleJob scheduleJob = new SysScheduleJob();
 		if(CommonUtil.isNotEmpty(jobGroup)) {
 			scheduleJob.setJobGroup(jobGroup);
