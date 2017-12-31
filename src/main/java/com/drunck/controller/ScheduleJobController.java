@@ -3,6 +3,7 @@ package com.drunck.controller;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -44,16 +45,23 @@ public class ScheduleJobController {
 	
 	@RequestMapping("createJob")
 	@ResponseBody
-	public ResultInfo createJob(SysScheduleJob scheduleJob) {
-		scheduleJob.setServiceName("com.drunck.service.impl.ScheduleJobServiceImpl");
-		scheduleJob.setServiceMethod("scheduleJob");
+	public ResultInfo createJob(SysScheduleJob scheduleJob, String pattern) {
+		scheduleJob.setCronExpresson(pattern);
 		scheduleJobService.createJob(scheduleJob);
 		return ResultInfo.instance();
 	}
 	
+	@RequestMapping("toEdit")
+	public String toEdit(String id, ModelMap modelMap) {
+		SysScheduleJob scheduleJob = scheduleJobService.queryById(id);
+		modelMap.addAttribute("scheduleJob", scheduleJob);
+		return "common/edittask";
+	}
+	
 	@RequestMapping("updateJob")
 	@ResponseBody
-	public ResultInfo updateJob(SysScheduleJob scheduleJob) {
+	public ResultInfo updateJob(SysScheduleJob scheduleJob, String pattern) {
+		scheduleJob.setCronExpresson(pattern);
 		scheduleJobService.updateJob(scheduleJob);
 		return ResultInfo.instance();
 	}

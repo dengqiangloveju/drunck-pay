@@ -84,10 +84,10 @@
 								</a> 
 							</c:otherwise>
 						</c:choose>
-						<a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','admin-add.html','1','800','500')" class="ml-5" style="text-decoration:none">
+						<a title="编辑" href="javascript:;" onclick="admin_edit('任务修改','${pageContext.request.contextPath}/job/toEdit','${job.id}','800','500')" class="ml-5" style="text-decoration:none">
 							<i class="Hui-iconfont">&#xe6df;</i>
 						</a> 
-						<a title="删除" href="javascript:;" onclick="admin_del(this,'1')" class="ml-5" style="text-decoration:none">
+						<a title="删除" href="javascript:;" onclick="admin_del(this,'${job.id}')" class="ml-5" style="text-decoration:none">
 							<i class="Hui-iconfont">&#xe6e2;</i>
 						</a>
 					</td>
@@ -119,13 +119,23 @@ function admin_add(title,url,w,h){
 function admin_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
 		//此处请求后台程序，下方是成功后的前台处理……
-		
-		$(obj).parents("tr").remove();
-		layer.msg('已删除!',{icon:1,time:1000});
+		$.ajax({ 
+		    type:'post',   
+		    url:'${pageContext.request.contextPath}/job/deleteJob', 
+		    data:'id='+id,
+		    dataType:'json', 
+		    success:function(data){ 
+		    	if(data.status) {
+		    		layer.msg('已删除!',{icon:1,time:1000});
+		    		$("#query").click();
+		    	}
+		    } 
+		});		
 	});
 }
 /*管理员-编辑*/
 function admin_edit(title,url,id,w,h){
+	url = url + '?id='+id;
 	layer_show(title,url,w,h);
 }
 /*管理员-停用*/

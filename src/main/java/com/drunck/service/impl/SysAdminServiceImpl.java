@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.drunck.base.BaseMapper;
 import com.drunck.base.impl.BaseServiceImpl;
+import com.drunck.domain.SysAdmin;
 import com.drunck.mapper.SysAdminMapper;
 import com.drunck.service.SysAdminService;
 
@@ -17,5 +18,13 @@ public class SysAdminServiceImpl extends BaseServiceImpl implements SysAdminServ
 	@Override
 	public BaseMapper<?> getMapper() {
 		return sysAdminMapper;
+	}
+
+	@Override
+	public SysAdmin queryByLoginName(String username) {
+		SysAdmin param = new SysAdmin();
+		param.setUserName(username);
+		SysAdmin sysAdmin = sysAdminMapper.selectOne(param);
+		return sysAdmin;
 	}
 }

@@ -1,6 +1,9 @@
 package com.drunck.service;
 
 import com.drunck.base.BaseService;
+import com.drunck.domain.SysAdmin;
 
 public interface SysAdminService extends BaseService {
+
+	SysAdmin queryByLoginName(String username);
 }

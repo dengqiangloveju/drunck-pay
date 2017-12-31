@@ -14,16 +14,20 @@
 <link href="${pageContext.request.contextPath}/ui/skin/default/skin.css" rel="stylesheet" type="text/css" id="skin" />
 <link href="${pageContext.request.contextPath}/ui/lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/ui/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+if(window != window.parent){
+	window.parent.location.reload(true);
+}
+</script>
 <title>鑫力支付系统</title>
 </head>
 <body>
 <header class="Hui-header cl"> <a class="Hui-logo l" title="H-ui.admin v2.3" href="/">鑫力支付系统</a> <a class="Hui-logo-m l" href="/" title="H-ui.admin"></a> <span class="Hui-subtitle l">V1.0</span>
 	<ul class="Hui-userbar">
 		<li>超级管理员</li>
-		<li class="dropDown dropDown_hover"><a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+		<li class="dropDown dropDown_hover"><a href="#" class="dropDown_A">${currentUser.userName} <i class="Hui-iconfont">&#xe6d5;</i></a>
 			<ul class="dropDown-menu radius box-shadow">
-				<li><a href="#">个人信息</a></li>
-				<li><a href="#">切换账户</a></li>
+				<li><a href="${pageContext.request.contextPath}/logout">切换账户</a></li>
 				<li><a href="${pageContext.request.contextPath}/logout">退出</a></li>
 			</ul>
 		</li>
@@ -74,39 +78,6 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/ui/lib/layer/1.9.3/layer.js"></script> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/ui/js/H-ui.js"></script> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/ui/js/H-ui.admin.js"></script> 
-<script type="text/javascript">
-/*资讯-添加*/
-function article_add(title,url){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
-}
-/*图片-添加*/
-function picture_add(title,url){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
-}
-/*产品-添加*/
-function product_add(title,url){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
-}
-/*用户-添加*/
-function member_add(title,url,w,h){
-	layer_show(title,url,w,h);
-}
-</script> 
 <script type="text/javascript">
 var _hmt = _hmt || [];
 (function() {
