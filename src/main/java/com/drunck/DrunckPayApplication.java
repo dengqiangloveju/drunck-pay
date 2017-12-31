@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 @ServletComponentScan
 @SpringBootApplication
 @EnableAutoConfiguration
+@EnableCaching
 @ImportResource(locations = { "classpath:druid-bean.xml" })
 @MapperScan(basePackages = "com.drunck.mapper")
 public class DrunckPayApplication {

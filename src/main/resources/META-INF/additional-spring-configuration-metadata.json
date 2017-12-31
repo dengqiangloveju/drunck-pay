@@ -1,5 +1,0 @@
-{"properties": [{
-  "name": "quartz.cron.email.message.send",
-  "type": "java.lang.String",
-  "description": "A description for 'quartz.cron.email.message.send'"
-}]}

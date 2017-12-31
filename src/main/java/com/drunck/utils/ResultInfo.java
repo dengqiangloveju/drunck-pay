@@ -3,6 +3,7 @@ package com.drunck.utils;
 public class ResultInfo {
 	private boolean status;
 	private String msg;
+	private Object obj;
 
 	public ResultInfo() {
 	}
@@ -34,5 +35,13 @@ public class ResultInfo {
 	
 	public static ResultInfo instance() {
 		return new ResultInfo(true);
+	}
+
+	public Object getObj() {
+		return obj;
+	}
+
+	public void setObj(Object obj) {
+		this.obj = obj;
 	}
 }
