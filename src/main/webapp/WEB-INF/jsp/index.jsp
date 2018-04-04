@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -45,17 +46,20 @@ if(window != window.parent){
 	</ul>
 	<a aria-hidden="false" class="Hui-nav-toggle" href="#"></a> </header>
 <aside class="Hui-aside">
-	<input runat="server" id="divScrollValue" type="hidden" value="" />
-	<div class="menu_dropdown bk_2">
-		<dl id="menu-admin">
-			<dt><i class="Hui-iconfont">&#xe62d;</i>通用组件<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a _href="/job/list" href="javascript:void(0)">任务列表</a></li>
-				</ul>
-			</dd>
-		</dl>
-	</div>
+	<c:forEach items="${menus}" var="menu">
+		<div class="menu_dropdown bk_2">
+			<dl id="menu-admin">
+				<dt><i class="Hui-iconfont">&#xe62d;</i>${menu.name}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+				<c:forEach items="${menu.children}" var="children">
+					<dd>
+						<ul>
+							<li><a _href="${children.url}" href="javascript:void(0)">${children.name}</a></li>
+						</ul>
+					</dd>
+				</c:forEach>
+			</dl>
+		</div>
+	</c:forEach>
 </aside>
 <div class="dislpayArrow"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
 <section class="Hui-article-box">

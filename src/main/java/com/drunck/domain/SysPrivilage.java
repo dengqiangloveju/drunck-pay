@@ -2,9 +2,11 @@ package com.drunck.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 public class SysPrivilage implements Serializable{
 	private static final long serialVersionUID = 4122526962517394364L;
@@ -20,12 +22,17 @@ public class SysPrivilage implements Serializable{
     private String url;
 
     private String description;
+    
+    private Boolean isMenu;
 
     private String parentId;
 
     private Date createTime;
 
     private Date updateTime;
+    
+    @Transient
+    private List<SysPrivilage> children;
 
     public String getId() {
         return id;
@@ -67,7 +74,15 @@ public class SysPrivilage implements Serializable{
         this.description = description == null ? null : description.trim();
     }
 
-    public String getParentId() {
+    public Boolean getIsMenu() {
+		return isMenu;
+	}
+
+	public void setIsMenu(Boolean isMenu) {
+		this.isMenu = isMenu;
+	}
+
+	public String getParentId() {
         return parentId;
     }
 
@@ -90,4 +105,12 @@ public class SysPrivilage implements Serializable{
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+	public List<SysPrivilage> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<SysPrivilage> children) {
+		this.children = children;
+	}
 }
