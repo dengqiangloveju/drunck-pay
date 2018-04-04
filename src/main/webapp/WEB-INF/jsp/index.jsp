@@ -22,9 +22,9 @@ if(window != window.parent){
 <title>鑫力支付系统</title>
 </head>
 <body>
-<header class="Hui-header cl"> <a class="Hui-logo l" title="H-ui.admin v2.3" href="/">鑫力支付系统</a> <a class="Hui-logo-m l" href="/" title="H-ui.admin"></a> <span class="Hui-subtitle l">V1.0</span>
+<header class="Hui-header cl"> <a class="Hui-logo l" title="H-ui.admin v2.3" href="javascript:void(0)">鑫力支付系统</a> <a class="Hui-logo-m l" href="/" title="H-ui.admin"></a>
 	<ul class="Hui-userbar">
-		<li>超级管理员</li>
+		<li>欢迎登陆：</li>
 		<li class="dropDown dropDown_hover"><a href="#" class="dropDown_A">${currentUser.userName} <i class="Hui-iconfont">&#xe6d5;</i></a>
 			<ul class="dropDown-menu radius box-shadow">
 				<li><a href="${pageContext.request.contextPath}/logout">切换账户</a></li>

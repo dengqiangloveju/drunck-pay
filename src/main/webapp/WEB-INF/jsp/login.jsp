@@ -12,6 +12,11 @@
 <link href="${pageContext.request.contextPath}/ui/css/style.css" rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/ui/lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
 <title>鑫力支付系统</title>
+<script type="text/javascript">
+if(window.parent.location.href!=location.href) {
+	window.parent.location.href=location.href;
+}
+</script>
 </head>
 <body>
 <input type="hidden" id="TenantId" name="TenantId" value="" />
