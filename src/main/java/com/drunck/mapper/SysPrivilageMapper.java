@@ -10,5 +10,5 @@ import com.drunck.domain.SysPrivilage;
 public interface SysPrivilageMapper extends BaseMapper<SysPrivilage>{
 	List<SysPrivilage> queryPrivilagesByUserId(@Param("userId") String userId);
 
-	List<SysPrivilage> queryMenuByUserId(@Param("userId") String userId);
+	List<SysPrivilage> queryMenuByRoleId(@Param("roleId") String roleId);
 }

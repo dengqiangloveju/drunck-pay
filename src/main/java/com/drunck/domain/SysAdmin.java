@@ -3,7 +3,6 @@ package com.drunck.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,7 +13,7 @@ public class SysAdmin implements Serializable{
 	@Id
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	//@SequenceGenerator(name="Any",sequenceName="seq_userid")
-	@GeneratedValue(generator = "UUID")
+	//@GeneratedValue(generator = "UUID")
 	private String id;
 
 	private String userName;

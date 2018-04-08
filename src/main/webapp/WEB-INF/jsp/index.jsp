@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -50,13 +51,13 @@ if(window != window.parent){
 		<div class="menu_dropdown bk_2">
 			<dl id="menu-admin">
 				<dt><i class="Hui-iconfont">&#xe62d;</i>${menu.name}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-				<c:forEach items="${menu.children}" var="children">
-					<dd>
-						<ul>
+				<dd>
+					<ul>
+						<c:forEach items="${menu.children}" var="children">
 							<li><a _href="${children.url}" href="javascript:void(0)">${children.name}</a></li>
-						</ul>
-					</dd>
-				</c:forEach>
+						</c:forEach>
+					</ul>
+				</dd>
 			</dl>
 		</div>
 	</c:forEach>
@@ -74,7 +75,7 @@ if(window != window.parent){
 	<div id="iframe_box" class="Hui-article">
 		<div class="show_iframe">
 			<div style="display:none" class="loading"></div>
-			<iframe scrolling="yes" frameborder="0" src="welcome.html"></iframe>
+			<iframe scrolling="yes" frameborder="0" src="http://localhost:8088/user/list"></iframe>
 		</div>
 	</div>
 </section>

@@ -37,20 +37,17 @@
 		WHERE u.id=#{userId} ]]>
 	</select>
 	
-	<select id="queryMenuByUserId" parameterType="java.lang.String" resultMap="ChildrenResultMap">
-		<![CDATA[SELECT p.id,p.name,p.res_key,p.url,p.description,p.is_menu,p.parent_id,p.create_time,p.update_time,
-		cp.id cid,cp.name cname,cp.res_key cres_key,cp.url curl,cp.description cdescription,
-		cp.is_menu cis_menu,cp.parent_id cparent_id,cp.create_time ccreate_time,cp.update_time cupdate_time  
-		FROM sys_privilage p 
-		LEFT JOIN sys_role_privilage rp ON p.id=rp.privilage_id 
-		LEFT JOIN sys_user_role ur ON rp.role_id=ur.role_id 
-		LEFT JOIN sys_admin u ON ur.user_id=u.id 
-		LEFT JOIN (SELECT op.id,op.name,op.res_key,op.url,op.description,op.is_menu,op.parent_id,
-		op.create_time,op.update_time FROM sys_privilage op 
-		LEFT JOIN sys_role_privilage rp ON op.id=rp.privilage_id 
-		LEFT JOIN sys_user_role ur ON rp.role_id=ur.role_id 
-		LEFT JOIN sys_admin u ON ur.user_id=u.id 
-		WHERE u.id=#{userId}) cp ON p.id=cp.parent_id 
-		WHERE u.id=#{userId} AND p.parent_id IS NULL ]]>
+	<select id="queryMenuByRoleId" parameterType="java.lang.String" resultMap="ChildrenResultMap">
+		<![CDATA[SELECT p.id,p.name,p.res_key,p.url,p.description,p.is_menu,p.parent_id,p.create_time,p.update_time, 
+		cp.id cid,cp.name cname,cp.res_key cres_key,cp.url curl,cp.description cdescription, 
+		cp.is_menu cis_menu,cp.parent_id cparent_id,cp.create_time ccreate_time,cp.update_time cupdate_time 
+		FROM sys_role_privilage rp 
+		LEFT JOIN sys_privilage p ON rp.privilage_id=p.id 
+		LEFT JOIN (
+		SELECT ctp.id,ctp.name,ctp.res_key,ctp.url,ctp.description,ctp.is_menu,ctp.parent_id,ctp.create_time,ctp.update_time 
+		FROM sys_role_privilage crp LEFT JOIN sys_privilage ctp ON crp.privilage_id=ctp.id 
+		WHERE crp.role_id=#{roleId} 
+		) cp ON p.id=cp.parent_id 
+		WHERE rp.role_id=#{roleId} AND p.is_menu=1 AND p.parent_id IS NULL ]]>
 	</select>
 </mapper>

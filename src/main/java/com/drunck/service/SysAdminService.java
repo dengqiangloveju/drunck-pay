@@ -6,4 +6,6 @@ import com.drunck.domain.SysAdmin;
 public interface SysAdminService extends BaseService {
 
 	SysAdmin queryByLoginName(String username);
+	
+	void save(SysAdmin sysAdmin, String roleId);
 }
