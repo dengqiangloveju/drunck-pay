@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,46 +11,59 @@
 <link href="${pageContext.request.contextPath}/ui/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/ui/lib/icheck/icheck.css" rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/ui/lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
-<title>用户修改</title>
+<title>资源添加</title>
 </head>
 <body>
 <div class="pd-20">
-	<form action="" method="post" class="form form-horizontal" id="form-user-edit">
-		<input type="hidden" name="id" value="${sysAdmin.id}">
+	<form action="" method="post" class="form form-horizontal" id="form-privilage-add">
 		<div class="row cl" style="margin-top: 5px">
-			<label class="form-label col-3"><span class="c-red">*</span>用户名称：</label>
-			<div class="formControls col-5">
-				<input type="text" class="input-text" value="${sysAdmin.userName}" id="userName" name="userName" datatype="*2-30" nullmsg="用户名称不能为空">
-			</div>
-			<div class="col-4" id="userNameTip"> </div>
-		</div>
-		<div class="row cl" style="margin-top: 5px">
-			<label class="form-label col-3"><span class="c-red">*</span>用户密码：</label>
-			<div class="formControls col-5">
-				<input type="text" class="input-text" value="${sysAdmin.password}" placeholder="" id="password" name="password" datatype="*2-30" nullmsg="用户密码不能为空">
-			</div>
-			<div class="col-4" id="passwordTip"> </div>
-		</div>
-		<div class="row cl" style="margin-top: 5px">
-			<label class="form-label col-3">用户角色：</label>
-			<div class="formControls col-5"> <span class="select-box" style="width:150px;">
-				<select class="select" name="roleId" size="1">
-					<c:forEach items="${roles}" var="role">
-						<option value="${role.id}" <c:if test="${role.id==sysUserRole.roleId}">selected="selected"</c:if>>${role.name}</option>
-					</c:forEach>
+			<label class="form-label col-3">上级菜单：</label>
+			<div class="formControls col-5"> <span class="select-box" style="width:200px;">
+				<select class="select" name="parentId" size="1">
+					<option value="1">菜单资源</option>
+					<option value="0">普通资源</option>
 				</select>
 				</span> 
 			</div>
 		</div>
 		<div class="row cl" style="margin-top: 5px">
-			<label class="form-label col-3">状态：</label>
+			<label class="form-label col-3"><span class="c-red">*</span>资源名称：</label>
+			<div class="formControls col-5">
+				<input type="text" class="input-text" value="" placeholder="" id="name" name="name" datatype="*2-30" nullmsg="资源名称不能为空">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl" style="margin-top: 5px">
+			<label class="form-label col-3"><span class="c-red">*</span>resKey：</label>
+			<div class="formControls col-5">
+				<input type="text" class="input-text" value="" placeholder="" id="resKey" name="resKey" datatype="*2-30" nullmsg="resKey不能为空">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl" style="margin-top: 5px">
+			<label class="form-label col-3"><span class="c-red">*</span>资源路径：</label>
+			<div class="formControls col-5">
+				<input type="text" class="input-text" value="" placeholder="" id="url" name="url" datatype="*2-300" nullmsg="资源路径不能为空">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl" style="margin-top: 5px">
+			<label class="form-label col-3">资源类型：</label>
 			<div class="formControls col-5"> <span class="select-box" style="width:150px;">
-				<select class="select" name="enable" size="1">
-					<option value="1" <c:if test="${sysAdmin.enable}">selected="selected"</c:if>>启用</option>
-					<option value="0" <c:if test="${!sysAdmin.enable}">selected="selected"</c:if>>禁用</option>
+				<select class="select" name="isMenu" size="1">
+					<option value="1">菜单资源</option>
+					<option value="0">普通资源</option>
 				</select>
 				</span> 
 			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-3">资源描述：</label>
+			<div class="formControls col-5">
+				<textarea name="description" cols="" rows="" class="textarea"  placeholder="" dragonfly="true" onKeyUp="textarealength(this,300)"></textarea>
+				<p class="textarea-numberbar"><em class="textarea-length">0</em>/300</p>
+			</div>
+			<div class="col-4"> </div>
 		</div>
 		<div class="row cl">
 			<div class="col-9 col-offset-3">
@@ -68,7 +80,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/ui/js/H-ui.admin.js"></script> 
 <script type="text/javascript">
 $(function(){
-	$("#form-user-edit").Validform({
+	$("#form-privilage-add").Validform({
 		tiptype:2,
 		callback:function(form){
 			form[0].submit();
@@ -79,27 +91,16 @@ $(function(){
 	});
 	
 	$("#submit").on("click", function() {
-		var userName = $('#userName').val();
-		if(userName==null || userName =='') {
-			$("#userNameTip").html('<span class="Validform_checktip Validform_wrong">用户名称不能为空</span>');
-			return;
-		}
-		var password = $('#password').val();
-		if(password==null || password =='') {
-			$("#passwordTip").html('<span class="Validform_checktip Validform_wrong">用户密码不能为空</span>');
-			return;
-		}
-		
 		$.ajax({ 
 		    type:'post',   
-		    url:'${pageContext.request.contextPath}/user/updateUser', 
-		    data:$("#form-user-edit").serialize(), 
+		    url:'${pageContext.request.contextPath}/privilage/createPrivilage', 
+		    data:$("#form-privilage-add").serialize(), 
 		    dataType:'json', 
 		    success:function(data){ 
 		    	if(data.status) {
 		    		window.parent.location.reload();
 		    	} else {
-		    		layer.msg('修改失败!',{icon:1,time:1000});
+		    		layer.msg('添加失败!',{icon:1,time:1000});
 		    	}
 		    } 
 		});

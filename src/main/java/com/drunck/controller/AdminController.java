@@ -13,8 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.drunck.domain.SysAdmin;
 import com.drunck.domain.SysRole;
+import com.drunck.domain.SysUserRole;
 import com.drunck.service.SysAdminService;
 import com.drunck.service.SysRoleService;
+import com.drunck.service.SysUserRoleService;
 import com.drunck.utils.CommonUtil;
 import com.drunck.utils.PageBean;
 import com.drunck.utils.PageInfo;
@@ -27,6 +29,8 @@ public class AdminController {
 	private SysAdminService sysAdminService;
 	@Resource
 	private SysRoleService sysRoleService;
+	@Resource
+	private SysUserRoleService sysUserRoleService;
 	
 	@RequestMapping("list")
 	public ModelAndView list(String userName, PageInfo pageInfo) {
@@ -52,7 +56,7 @@ public class AdminController {
 	
 	@RequestMapping("createUser")
 	@ResponseBody
-	public ResultInfo createJob(SysAdmin sysAdmin, String roleId) {
+	public ResultInfo createUser(SysAdmin sysAdmin, String roleId) {
 		sysAdminService.save(sysAdmin, roleId);
 		return ResultInfo.instance();
 	}
@@ -63,21 +67,25 @@ public class AdminController {
 		modelMap.addAttribute("roles", roles);
 		SysAdmin sysAdmin = sysAdminService.queryById(id);
 		modelMap.addAttribute("sysAdmin", sysAdmin);
+		SysUserRole param = new SysUserRole();
+		param.setUserId(id);
+		SysUserRole sysUserRole = sysUserRoleService.selectOne(param);
+		modelMap.addAttribute("sysUserRole", sysUserRole);
 		return "admin/edituser";
 	}
 	
 	@RequestMapping("updateUser")
 	@ResponseBody
-	public ResultInfo updateAdmin(SysAdmin sysAdmin, String roleId) {
+	public ResultInfo updateUser(SysAdmin sysAdmin, String roleId) {
 		Date date = new Date();
 		sysAdmin.setUpdateTime(date);
-		sysAdminService.update(sysAdmin);
+		sysAdminService.update(sysAdmin, roleId);
 		return ResultInfo.instance();
 	}
 	
 	@RequestMapping("deleteUser")
 	@ResponseBody
-	public ResultInfo deleteJob(String id) {
+	public ResultInfo deleteUser(String id) {
 		sysAdminService.deleteById(id);
 		return ResultInfo.instance();
 	}

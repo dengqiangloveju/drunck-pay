@@ -82,8 +82,8 @@ public abstract class BaseServiceImpl implements BaseService {
 	
 	@Override
 	public <T> PageBean queryByPager(T t, int pageNo, int pageSize) {
-		PageHelper.startPage(pageNo, pageSize);
 		int totalnum = getMapper().selectCount(t);
+		PageHelper.startPage(pageNo, pageSize);
 		List<T> list = (List<T>) getMapper().select(t);
 		return new PageBean(list, totalnum, pageNo, pageSize);
 	}

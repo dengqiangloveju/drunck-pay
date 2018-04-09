@@ -31,4 +31,9 @@ public class SysPrivilageServiceImpl extends BaseServiceImpl implements SysPrivi
 		SysRole sysRole = sysRoleMapper.queryRolesByUserId(userId);
 		return sysPrivilageMapper.queryMenuByRoleId(sysRole.getId());
 	}
+
+	@Override
+	public List<SysPrivilage> queryTree() {
+		return sysPrivilageMapper.queryTree();
+	}
 }

@@ -49,4 +49,25 @@ public class SysAdminServiceImpl extends BaseServiceImpl implements SysAdminServ
 		
 		sysUserRoleMapper.insertSelective(sysUserRole);
 	}
+
+	@Override
+	public void update(SysAdmin sysAdmin, String roleId) {
+		sysAdmin.setUpdateTime(new Date());
+		sysAdminMapper.updateByPrimaryKeySelective(sysAdmin);
+		
+		SysUserRole param = new SysUserRole();
+		param.setUserId(sysAdmin.getId());
+		SysUserRole sysUserRole = sysUserRoleMapper.selectOne(param);
+		sysUserRole.setRoleId(roleId);
+		sysUserRoleMapper.updateByPrimaryKeySelective(sysUserRole);
+	}
+
+	@Override
+	public void deleteById(String id) {
+		sysAdminMapper.deleteByPrimaryKey(id);
+		SysUserRole param = new SysUserRole();
+		param.setUserId(id);
+		sysUserRoleMapper.delete(param);
+		
+	}
 }

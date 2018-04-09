@@ -48,6 +48,15 @@
 		FROM sys_role_privilage crp LEFT JOIN sys_privilage ctp ON crp.privilage_id=ctp.id 
 		WHERE crp.role_id=#{roleId} 
 		) cp ON p.id=cp.parent_id 
-		WHERE rp.role_id=#{roleId} AND p.is_menu=1 AND p.parent_id IS NULL ]]>
+		WHERE rp.role_id=#{roleId} AND p.is_menu=1 AND p.parent_id='0' ]]>
+	</select>
+	
+	<select id="queryTree" resultMap="ChildrenResultMap">
+		<![CDATA[SELECT p.id,p.name,p.res_key,p.url,p.description,p.is_menu,p.parent_id,p.create_time,p.update_time, 
+		cp.id cid,cp.name cname,cp.res_key cres_key,cp.url curl,cp.description cdescription, 
+		cp.is_menu cis_menu,cp.parent_id cparent_id,cp.create_time ccreate_time,cp.update_time cupdate_time 
+		FROM sys_privilage p 
+		LEFT JOIN sys_privilage cp ON p.id=cp.parent_id 
+		WHERE p.parent_id='0' ]]> 
 	</select>
 </mapper>
