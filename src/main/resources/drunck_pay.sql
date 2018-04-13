@@ -156,7 +156,7 @@ CREATE TABLE `qrtz_scheduler_state` (
 
 /*Data for the table `qrtz_scheduler_state` */
 
-insert  into `qrtz_scheduler_state`(`SCHED_NAME`,`INSTANCE_NAME`,`LAST_CHECKIN_TIME`,`CHECKIN_INTERVAL`) values ('scheduler','WIN-GLI6IIITU3N1522832913534',1522834804863,15000);
+insert  into `qrtz_scheduler_state`(`SCHED_NAME`,`INSTANCE_NAME`,`LAST_CHECKIN_TIME`,`CHECKIN_INTERVAL`) values ('scheduler','WIN-GLI6IIITU3N1523520561797',1523531426149,15000);
 
 /*Table structure for table `qrtz_simple_triggers` */
 
@@ -239,7 +239,7 @@ CREATE TABLE `qrtz_triggers` (
 
 /*Data for the table `qrtz_triggers` */
 
-insert  into `qrtz_triggers`(`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`,`JOB_NAME`,`JOB_GROUP`,`DESCRIPTION`,`NEXT_FIRE_TIME`,`PREV_FIRE_TIME`,`PRIORITY`,`TRIGGER_STATE`,`TRIGGER_TYPE`,`START_TIME`,`END_TIME`,`CALENDAR_NAME`,`MISFIRE_INSTR`,`JOB_DATA`) values ('scheduler','aaa','jobGroup','aaa','jobGroup',NULL,1522815690000,1522815680000,5,'PAUSED','CRON',1513783422000,0,NULL,0,'');
+insert  into `qrtz_triggers`(`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`,`JOB_NAME`,`JOB_GROUP`,`DESCRIPTION`,`NEXT_FIRE_TIME`,`PREV_FIRE_TIME`,`PRIORITY`,`TRIGGER_STATE`,`TRIGGER_TYPE`,`START_TIME`,`END_TIME`,`CALENDAR_NAME`,`MISFIRE_INSTR`,`JOB_DATA`) values ('scheduler','aaa','jobGroup','aaa','jobGroup',NULL,1523177380000,1523177370000,5,'PAUSED','CRON',1513783422000,0,NULL,0,'');
 
 /*Table structure for table `sys_admin` */
 
@@ -258,7 +258,7 @@ CREATE TABLE `sys_admin` (
 
 /*Data for the table `sys_admin` */
 
-insert  into `sys_admin`(`id`,`user_name`,`password`,`enable`,`create_time`,`update_time`,`is_del`) values ('fbdc6f6fe71d43a2b114c57e19415fa9','admin','admin','','2017-12-14 21:47:46','2017-12-14 21:47:46',''),('fc1364209fb944b5a7233e270a1279dd','user','user','','2017-12-14 16:58:38','2017-12-14 16:58:38','');
+insert  into `sys_admin`(`id`,`user_name`,`password`,`enable`,`create_time`,`update_time`,`is_del`) values ('fbdc6f6fe71d43a2b114c57e19415fa9','admin','admin','','2017-12-14 21:47:46','2017-12-14 21:47:46','\0'),('fc1364209fb944b5a7233e270a1279dd','user','user','','2017-12-14 16:58:38','2017-12-14 16:58:38','\0');
 
 /*Table structure for table `sys_privilage` */
 
@@ -274,12 +274,13 @@ CREATE TABLE `sys_privilage` (
   `parent_id` varchar(100) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `parent_index` (`parent_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sys_privilage` */
 
-insert  into `sys_privilage`(`id`,`name`,`res_key`,`url`,`description`,`is_menu`,`parent_id`,`create_time`,`update_time`) values ('1','通用组件','COMMON',NULL,'通用组件','',NULL,'2018-04-04 13:57:14','2018-04-04 13:57:16'),('2','定时任务列表','JOB_LIST','/job/list','定时任务列表','','1','2017-12-24 19:50:45','2017-12-24 19:50:50'),('3','定时任务添加','JOB_ADD','/job/createJob','定时任务添加','\0','2','2017-12-24 19:52:41','2017-12-24 19:52:45'),('4','定时任务修改','JOB_UPDATE','/job/updateJob','定时任务修改','\0','2','2017-12-24 19:54:55','2017-12-24 19:55:01'),('5','定时任务删除','JOB_DELETE','/job/deleteJob','定时任务删除','\0','2','2017-12-24 19:55:28','2017-12-24 19:55:32');
+insert  into `sys_privilage`(`id`,`name`,`res_key`,`url`,`description`,`is_menu`,`parent_id`,`create_time`,`update_time`) values ('01','基础信息','BASE',NULL,'基础信息','','0','2017-12-24 19:49:28','2018-04-04 13:57:16'),('02','定时任务列表','JOB_LIST','/job/list','定时任务列表','','06','2017-12-24 19:50:45','2017-12-24 19:50:50'),('03','定时任务添加','JOB_ADD','/job/createJob','定时任务添加','\0','02','2017-12-24 19:52:41','2017-12-24 19:52:45'),('04','定时任务修改','JOB_UPDATE','/job/updateJob','定时任务修改','\0','02','2017-12-24 19:54:55','2017-12-24 19:55:01'),('05','定时任务删除','JOB_DELETE','/job/deleteJob','定时任务删除','\0','02','2017-12-24 19:55:28','2017-12-24 19:55:32'),('06','通用组件','COMMON',NULL,'通用组件','','0','2018-04-08 10:15:16','2018-04-08 10:15:18'),('07','角色列表','ROLE_LIST','/role/list','角色列表','','01','2018-04-08 10:16:14','2018-04-08 10:16:16'),('08','角色添加','ROLE_ADD','/role/createRole','角色添加','\0','07','2018-04-08 10:18:40','2018-04-08 10:18:44'),('09','角色修改','ROLE_UPDATE','/role/updateRole','角色修改','\0','07','2018-04-08 10:20:11','2018-04-08 10:20:14'),('10','角色删除','ROLE_DELETE','/role/deleteRole','角色删除','\0','07','2018-04-08 10:50:08','2018-04-08 10:21:10'),('11','用户列表','USER_LIST','/user/list','用户列表','','01','2018-04-08 15:38:38','2018-04-08 15:38:41'),('12','用户添加','USER_ADD','/user/createUser','用户添加','\0','11','2018-04-08 15:38:43','2018-04-08 15:38:45'),('13','用户修改','USER_UPDATE','/user/updateUser','用户修改','\0','11','2018-04-08 15:38:47','2018-04-08 15:38:49'),('14','用户删除','USER_DELETE','/user/deleteUser','用户删除','\0','11','2018-04-08 15:38:52','2018-04-08 15:38:54'),('15','资源列表','PRIVILAGE_LIST','/privilage/list','资源列表','','01','2018-04-09 10:43:13','2018-04-09 10:43:15');
 
 /*Table structure for table `sys_role` */
 
@@ -295,7 +296,7 @@ CREATE TABLE `sys_role` (
 
 /*Data for the table `sys_role` */
 
-insert  into `sys_role`(`id`,`name`,`create_time`,`update_time`) values ('1','ROLE_ADMIN','2017-12-23 16:02:46','2017-12-23 16:02:49'),('2','ROLE_USER','2017-12-23 16:03:06','2017-12-23 16:03:08');
+insert  into `sys_role`(`id`,`name`,`create_time`,`update_time`) values ('01','超级管理员','2017-12-23 16:02:46','2017-12-23 16:02:49'),('02','普通用户','2017-12-23 16:03:06','2017-12-23 16:03:08');
 
 /*Table structure for table `sys_role_privilage` */
 
@@ -311,7 +312,7 @@ CREATE TABLE `sys_role_privilage` (
 
 /*Data for the table `sys_role_privilage` */
 
-insert  into `sys_role_privilage`(`id`,`role_id`,`privilage_id`) values ('1','1','1'),('2','1','2'),('3','1','3'),('4','1','4'),('5','1','5');
+insert  into `sys_role_privilage`(`id`,`role_id`,`privilage_id`) values ('01','01','01'),('02','01','02'),('03','01','03'),('04','01','04'),('05','01','05'),('06','01','06'),('07','01','07'),('08','01','08'),('09','01','09'),('10','01','10'),('11','01','11'),('12','01','12'),('13','01','13'),('14','01','14'),('15','01','15');
 
 /*Table structure for table `sys_schedule_job` */
 
@@ -350,7 +351,7 @@ CREATE TABLE `sys_user_role` (
 
 /*Data for the table `sys_user_role` */
 
-insert  into `sys_user_role`(`id`,`user_id`,`role_id`) values ('1','fbdc6f6fe71d43a2b114c57e19415fa9','1'),('2','fc1364209fb944b5a7233e270a1279dd','2');
+insert  into `sys_user_role`(`id`,`user_id`,`role_id`) values ('1','fbdc6f6fe71d43a2b114c57e19415fa9','01'),('2','fc1364209fb944b5a7233e270a1279dd','02');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
