@@ -35,18 +35,18 @@ if(window.parent.location.href!=location.href) {
           <input id="password" name="password" type="password" placeholder="密码" class="input-text size-L">
         </div>
       </div>
-      <!-- <div class="row cl">
+      <div class="row cl">
         <div class="formControls col-8 col-offset-3">
           <input class="input-text size-L" type="text" placeholder="验证码" value="" style="width:150px;">
-          <img src="images/VerifyCode.aspx.png"> <a id="kanbuq" href="javascript:;">看不清，换一张</a> </div>
-      </div> -->
-      <div class="row">
+          <img src="/sys/getCode" style="width:120px;height:40px"> <a id="kanbuq" href="javascript:;">看不清，换一张</a> </div>
+      </div>
+      <!-- <div class="row">
         <div class="formControls col-8 col-offset-3">
           <label for="online">
             <input type="checkbox" name="online" id="online" value="">
             使我保持登录状态</label>
         </div>
-      </div>
+      </div> -->
       <div class="row">
         <div class="formControls col-8 col-offset-3">
           <input name="login" type="submit" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">

@@ -39,6 +39,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
 		        //.antMatchers("/ui/**","/page/**")
 				//.permitAll()
+		        .antMatchers("/sys/getCode")
+		        .permitAll()
                 .anyRequest().authenticated() //任何请求,登录后可以访问
                 .and()
                 .csrf()  
