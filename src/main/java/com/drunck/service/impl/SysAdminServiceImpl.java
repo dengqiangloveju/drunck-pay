@@ -14,6 +14,7 @@ import com.drunck.mapper.SysAdminMapper;
 import com.drunck.mapper.SysUserRoleMapper;
 import com.drunck.service.SysAdminService;
 import com.drunck.utils.CommonUtil;
+import com.drunck.utils.MD5Util;
 
 @Service("sysAdminService")
 public class SysAdminServiceImpl extends BaseServiceImpl implements SysAdminService {
@@ -39,6 +40,7 @@ public class SysAdminServiceImpl extends BaseServiceImpl implements SysAdminServ
 	public void save(SysAdmin sysAdmin, String roleId) {
 		Date date = new Date();
 		sysAdmin.setId(CommonUtil.gitUUID());
+		sysAdmin.setPassword(MD5Util.encode(sysAdmin.getPassword()));
 		sysAdmin.setCreateTime(date);
 		sysAdmin.setUpdateTime(date);
 		sysAdmin.setIsDel(false);
@@ -58,8 +60,13 @@ public class SysAdminServiceImpl extends BaseServiceImpl implements SysAdminServ
 		SysUserRole param = new SysUserRole();
 		param.setUserId(sysAdmin.getId());
 		SysUserRole sysUserRole = sysUserRoleMapper.selectOne(param);
-		sysUserRole.setRoleId(roleId);
-		sysUserRoleMapper.updateByPrimaryKeySelective(sysUserRole);
+		if(CommonUtil.isEmpty(sysUserRole)) {
+			sysUserRole = new SysUserRole(sysAdmin.getId(), roleId);
+			sysUserRoleMapper.insertSelective(sysUserRole);
+		} else {
+			sysUserRole.setRoleId(roleId);
+			sysUserRoleMapper.updateByPrimaryKeySelective(sysUserRole);
+		}
 	}
 
 	@Override

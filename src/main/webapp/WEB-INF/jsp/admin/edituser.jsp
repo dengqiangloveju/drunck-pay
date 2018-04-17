@@ -25,13 +25,13 @@
 			</div>
 			<div class="col-4" id="userNameTip"> </div>
 		</div>
-		<div class="row cl" style="margin-top: 5px">
+		<%-- <div class="row cl" style="margin-top: 5px">
 			<label class="form-label col-3"><span class="c-red">*</span>用户密码：</label>
 			<div class="formControls col-5">
 				<input type="text" class="input-text" value="${sysAdmin.password}" placeholder="" id="password" name="password" datatype="*2-30" nullmsg="用户密码不能为空">
 			</div>
 			<div class="col-4" id="passwordTip"> </div>
-		</div>
+		</div> --%>
 		<div class="row cl" style="margin-top: 5px">
 			<label class="form-label col-3">用户角色：</label>
 			<div class="formControls col-5"> <span class="select-box" style="width:150px;">
@@ -82,11 +82,6 @@ $(function(){
 		var userName = $('#userName').val();
 		if(userName==null || userName =='') {
 			$("#userNameTip").html('<span class="Validform_checktip Validform_wrong">用户名称不能为空</span>');
-			return;
-		}
-		var password = $('#password').val();
-		if(password==null || password =='') {
-			$("#passwordTip").html('<span class="Validform_checktip Validform_wrong">用户密码不能为空</span>');
 			return;
 		}
 		
