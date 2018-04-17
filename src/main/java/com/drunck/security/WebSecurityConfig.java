@@ -9,10 +9,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.drunck.utils.MD5Util;
 
 @Configuration
 @EnableWebSecurity
@@ -26,7 +29,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(myUserDetailService);
+        auth.userDetailsService(myUserDetailService).passwordEncoder(new PasswordEncoder() {
+			
+			@Override
+			public boolean matches(CharSequence rawPassword, String encodedPassword) {
+				return encodedPassword.equals(MD5Util.encode((String)rawPassword));
+			}
+			
+			@Override
+			public String encode(CharSequence rawPassword) {
+				return MD5Util.encode((String)rawPassword);
+			}
+		});
     }
 	
 	/***设置不拦截规则*/

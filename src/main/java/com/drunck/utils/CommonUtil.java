@@ -24,6 +24,8 @@ public class CommonUtil {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(gitUUID());
+		for(int i=1; i<19; i++) {
+			System.out.println(i+"--------->"+gitUUID());
+		}
 	}
 }
