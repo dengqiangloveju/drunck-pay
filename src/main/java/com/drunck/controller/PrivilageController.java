@@ -53,6 +53,12 @@ public class PrivilageController {
 	@RequestMapping("createPrivilage")
 	@ResponseBody
 	public ResultInfo createPrivilage(SysPrivilage sysPrivilage) {
+		Date date = new Date();
+		if(CommonUtil.isEmpty(sysPrivilage.getParentId())) {
+			sysPrivilage.setParentId("0");
+		}
+		sysPrivilage.setCreateTime(date);
+		sysPrivilage.setUpdateTime(date);
 		sysPrivilageService.save(sysPrivilage);
 		return ResultInfo.instance();
 	}
@@ -63,7 +69,7 @@ public class PrivilageController {
 		modelMap.addAttribute("privilages", privilages);
 		SysPrivilage sysPrivilage = sysPrivilageService.queryById(id);
 		modelMap.addAttribute("sysPrivilage", sysPrivilage);
-		return "privilage/editPrivilage";
+		return "privilage/addPrivilage";
 	}
 	
 	@RequestMapping("updatePrivilage")

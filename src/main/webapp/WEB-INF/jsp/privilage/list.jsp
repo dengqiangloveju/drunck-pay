@@ -95,7 +95,6 @@
 	</c:forEach>
 	<a class="paginate_button next disabled" href="javascript:queryPage(${pager.nextPage})" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" id="DataTables_Table_0_next">下一页</a>
 	</div>
-	<jsp:include page=""/>
 	</div>
 </div>
 <script type="text/javascript" src="${pageContext.request.contextPath}/ui/lib/jquery/1.9.1/jquery.min.js"></script>  
@@ -104,11 +103,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/ui/lib/My97DatePicker/WdatePicker.js"></script> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/ui/js/H-ui.js"></script> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/ui/js/H-ui.admin.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/ui/js/common.js"></script> 
 <script type="text/javascript">
-function queryPage(pageNo) {
-	$("#queryForm").append('<input type="hidden" name="pageNo" value="'+pageNo+'">');
-	$("#queryForm").submit();
-}
 /*
 	参数解释：
 	title	标题

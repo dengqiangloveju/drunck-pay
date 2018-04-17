@@ -3,14 +3,12 @@ package com.drunck.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 public class SysRole implements Serializable{
 	private static final long serialVersionUID = 5649324930798057992L;
 	
 	@Id
-	@GeneratedValue(generator = "UUID")
     private String id;
 
     private String name;

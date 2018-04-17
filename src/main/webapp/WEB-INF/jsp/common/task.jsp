@@ -20,7 +20,7 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 通用组件 <span class="c-gray en">&gt;</span> 定时任务列表 </nav>
 <div class="pd-20">
-	<form action="${pageContext.request.contextPath}/job/list" method="post">
+	<form action="${pageContext.request.contextPath}/job/list" id="queryForm" method="post">
 		<div class="text-c"> 
 			任务组名称：
 			<input type="text" class="input-text" value="${scheduleJob.jobGroup}" style="width:250px" placeholder="输入任务组名称" id="jobGroup" name="jobGroup">
@@ -95,6 +95,18 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">弟 ${pager.pageNo} 页 ，共 ${pager.totalPage} 页</div>
+	<div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+	<a class="paginate_button previous disabled" href="javascript:queryPage(${pager.prePage})" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" id="DataTables_Table_0_previous">上一页</a>
+	<c:forEach begin="${pager.startPage}" end="${pager.endPage}" var="num">
+		<c:choose>
+			<c:when test="${num eq pager.pageNo}"><span><a class="paginate_button current" href="javascript:queryPage(${num})" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">${num}</a></span></c:when>
+			<c:otherwise><span><a class="paginate_button" href="javascript:queryPage(${num})" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">${num}</a></span></c:otherwise>
+		</c:choose>
+	</c:forEach>
+	<a class="paginate_button next disabled" href="javascript:queryPage(${pager.nextPage})" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" id="DataTables_Table_0_next">下一页</a>
+	</div>
+	</div>
 </div>
 <script type="text/javascript" src="${pageContext.request.contextPath}/ui/lib/jquery/1.9.1/jquery.min.js"></script>  
 <script type="text/javascript" src="${pageContext.request.contextPath}/ui/lib/layer/1.9.3/layer.js"></script> 
@@ -102,6 +114,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/ui/lib/My97DatePicker/WdatePicker.js"></script> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/ui/js/H-ui.js"></script> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/ui/js/H-ui.admin.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/ui/js/common.js"></script> 
 <script type="text/javascript">
 /*
 	参数解释：

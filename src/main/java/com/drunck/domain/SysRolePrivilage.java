@@ -3,18 +3,37 @@ package com.drunck.domain;
 import java.io.Serializable;
 
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 public class SysRolePrivilage implements Serializable{
 	private static final long serialVersionUID = -6503169727581663533L;
-
+	
+	@Id
 	@GeneratedValue(generator = "UUID")
     private String id;
 
     private String roleId;
 
     private String privilageId;
+    
+    public SysRolePrivilage() {}
+    
+    public SysRolePrivilage(String roleId) {
+		this.roleId = roleId;
+	}
+    
+    public SysRolePrivilage(String roleId, String privilageId) {
+		this.roleId = roleId;
+		this.privilageId = privilageId;
+	}
 
-    public String getId() {
+    public SysRolePrivilage(String id, String roleId, String privilageId) {
+		this.id = id;
+		this.roleId = roleId;
+		this.privilageId = privilageId;
+	}
+
+	public String getId() {
         return id;
     }
 

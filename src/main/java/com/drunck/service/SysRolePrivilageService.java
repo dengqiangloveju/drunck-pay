@@ -1,0 +1,7 @@
+package com.drunck.service;
+
+import com.drunck.base.BaseService;
+
+public interface SysRolePrivilageService extends BaseService {
+
+}

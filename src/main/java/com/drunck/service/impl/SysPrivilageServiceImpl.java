@@ -36,4 +36,22 @@ public class SysPrivilageServiceImpl extends BaseServiceImpl implements SysPrivi
 	public List<SysPrivilage> queryTree() {
 		return sysPrivilageMapper.queryTree();
 	}
+
+	@Override
+	public List<SysPrivilage> queryPrivilage() {
+		SysPrivilage sysPrivilage = new SysPrivilage();
+		sysPrivilage.setId("0");
+		queryChildren(sysPrivilage);
+		return sysPrivilage.getChildren();
+	}
+	
+	public void queryChildren(SysPrivilage sysPrivilage) {
+		List<SysPrivilage> list = sysPrivilageMapper.queryChildren(sysPrivilage.getId());
+		if(list!=null && list.size()>0) {
+			for(SysPrivilage privilage : list) {
+				queryChildren(privilage);
+			}
+			sysPrivilage.setChildren(list);
+		}
+	}
 }

@@ -59,4 +59,10 @@
 		LEFT JOIN sys_privilage cp ON p.id=cp.parent_id 
 		WHERE p.parent_id='0' ]]> 
 	</select>
+	
+	<select id="queryChildren" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" /> 
+		FROM sys_privilage WHERE parent_id = #{parentId} 
+	</select>
 </mapper>

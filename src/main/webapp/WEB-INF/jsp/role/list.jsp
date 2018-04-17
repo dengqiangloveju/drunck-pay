@@ -20,7 +20,7 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 基础信息 <span class="c-gray en">&gt;</span> 角色管理 </nav>
 <div class="pd-20">
-	<form action="${pageContext.request.contextPath}/role/list" method="post">
+	<form action="${pageContext.request.contextPath}/role/list" id="queryForm" method="post">
 		<div class="text-c"> 
 			角色名称：
 			<input type="text" class="input-text" value="${sysRole.name}" style="width:250px" placeholder="输入角色名称" id="name" name="name">
@@ -29,7 +29,7 @@
 	</form>
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
 		<span class="l">
-		<a href="javascript:;" onclick="role_add('角色添加','${pageContext.request.contextPath}/role/toAdd','500','180')" class="btn btn-primary radius">
+		<a href="javascript:;" onclick="role_add('角色添加','${pageContext.request.contextPath}/role/toAdd','800','500')" class="btn btn-primary radius">
 		<i class="Hui-iconfont">&#xe600;</i> 角色添加</a>
 		</span>
 		<span class="r">共有数据：<strong>${pager.totalnum}</strong> 条</span>
@@ -53,7 +53,7 @@
 					<td><fmt:formatDate value="${role.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 					<td><fmt:formatDate value="${role.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 					<td class="td-manage">
-						<a title="编辑" href="javascript:;" onclick="role_edit('角色修改','${pageContext.request.contextPath}/role/toEdit','${role.id}','500','180')" class="ml-5" style="text-decoration:none">
+						<a title="编辑" href="javascript:;" onclick="role_edit('角色修改','${pageContext.request.contextPath}/role/toEdit','${role.id}','800','500')" class="ml-5" style="text-decoration:none">
 							<i class="Hui-iconfont">&#xe6df;</i>
 						</a> 
 						<a title="删除" href="javascript:;" onclick="role_del(this,'${role.id}')" class="ml-5" style="text-decoration:none">
@@ -64,6 +64,18 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">弟 ${pager.pageNo} 页 ，共 ${pager.totalPage} 页</div>
+	<div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+	<a class="paginate_button previous disabled" href="javascript:queryPage(${pager.prePage})" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" id="DataTables_Table_0_previous">上一页</a>
+	<c:forEach begin="${pager.startPage}" end="${pager.endPage}" var="num">
+		<c:choose>
+			<c:when test="${num eq pager.pageNo}"><span><a class="paginate_button current" href="javascript:queryPage(${num})" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">${num}</a></span></c:when>
+			<c:otherwise><span><a class="paginate_button" href="javascript:queryPage(${num})" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">${num}</a></span></c:otherwise>
+		</c:choose>
+	</c:forEach>
+	<a class="paginate_button next disabled" href="javascript:queryPage(${pager.nextPage})" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" id="DataTables_Table_0_next">下一页</a>
+	</div>
+	</div>
 </div>
 <script type="text/javascript" src="${pageContext.request.contextPath}/ui/lib/jquery/1.9.1/jquery.min.js"></script>  
 <script type="text/javascript" src="${pageContext.request.contextPath}/ui/lib/layer/1.9.3/layer.js"></script> 
@@ -71,6 +83,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/ui/lib/My97DatePicker/WdatePicker.js"></script> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/ui/js/H-ui.js"></script> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/ui/js/H-ui.admin.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/ui/js/common.js"></script> 
 <script type="text/javascript">
 /*
 	参数解释：
@@ -81,12 +94,18 @@
 	h		弹出层高度（缺省调默认值）
 */
 
-/*管理员-增加*/
+/*角色-增加*/
 function role_add(title,url,w,h){
 	layer_show(title,url,w,h);
 }
 
-/*管理员-删除*/
+/*角色-授权*/
+function privilage_deal(title,url,id,w,h){
+	url = url + '?roleId='+id;
+	layer_show(title,url,w,h);
+}
+
+/*角色-删除*/
 function role_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
 		//此处请求后台程序，下方是成功后的前台处理……
@@ -105,7 +124,7 @@ function role_del(obj,id){
 	});
 }
 
-/*管理员-编辑*/
+/*角色-编辑*/
 function role_edit(title,url,id,w,h){
 	url = url + '?id='+id;
 	layer_show(title,url,w,h);

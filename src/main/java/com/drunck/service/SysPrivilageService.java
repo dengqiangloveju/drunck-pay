@@ -10,4 +10,6 @@ public interface SysPrivilageService extends BaseService {
 	List<SysPrivilage> queryMenu(String userId);
 
 	List<SysPrivilage> queryTree();
+
+	List<SysPrivilage> queryPrivilage();
 }

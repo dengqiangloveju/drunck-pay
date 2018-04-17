@@ -37,8 +37,8 @@ if(window.parent.location.href!=location.href) {
       </div>
       <div class="row cl">
         <div class="formControls col-8 col-offset-3">
-          <input class="input-text size-L" type="text" placeholder="验证码" value="" style="width:150px;">
-          <img src="/sys/getCode" style="width:120px;height:40px"> <a id="kanbuq" href="javascript:;">看不清，换一张</a> </div>
+          <input class="input-text size-L" type="text" name="validateCode" placeholder="验证码" value="" style="width:150px;">
+          <img id="imgCode" src="/sys/getCode" onclick="javascript:getCode();" style="width:105px;height:40px"> <a id="kanbuq" onclick="javascript:getCode();">看不清，换一张</a> </div>
       </div>
       <!-- <div class="row">
         <div class="formControls col-8 col-offset-3">
@@ -68,6 +68,10 @@ var _hmt = _hmt || [];
 })();
 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F080836300300be57b7f34f4b3e97d911' type='text/javascript'%3E%3C/script%3E"));
+
+function getCode(){
+	$("#imgCode").attr("src","/sys/getCode?random="+Math.random());
+}
 </script>
 </body>
 </html>

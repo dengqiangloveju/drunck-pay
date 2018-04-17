@@ -1,6 +1,7 @@
 package com.drunck.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -10,7 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.drunck.domain.SysPrivilage;
 import com.drunck.domain.SysRole;
+import com.drunck.domain.SysRolePrivilage;
+import com.drunck.service.SysPrivilageService;
+import com.drunck.service.SysRolePrivilageService;
 import com.drunck.service.SysRoleService;
 import com.drunck.utils.CommonUtil;
 import com.drunck.utils.PageBean;
@@ -22,6 +27,10 @@ import com.drunck.utils.ResultInfo;
 public class RoleController {
 	@Resource
 	private SysRoleService sysRoleService;
+	@Resource
+	private SysPrivilageService sysPrivilageService;
+	@Resource
+	private SysRolePrivilageService sysRolePrivilageService;
 	
 	@RequestMapping("list")
 	public ModelAndView list(String name, PageInfo pageInfo) {
@@ -39,17 +48,20 @@ public class RoleController {
 	}
 	
 	@RequestMapping("toAdd")
-	public String toAdd() {
+	public String toAdd(ModelMap modelMap) {
+		List<SysPrivilage> privilages = sysPrivilageService.queryPrivilage();
+		modelMap.addAttribute("privilages", privilages);
+		
 		return "role/addrole";
 	}
 	
 	@RequestMapping("createRole")
 	@ResponseBody
-	public ResultInfo createJob(SysRole sysRole) {
+	public ResultInfo createJob(SysRole sysRole, String[] pids) {
 		Date date = new Date();
 		sysRole.setCreateTime(date);
 		sysRole.setUpdateTime(date);
-		sysRoleService.save(sysRole);
+		sysRoleService.save(sysRole, pids);
 		return ResultInfo.instance();
 	}
 	
@@ -57,15 +69,24 @@ public class RoleController {
 	public String toEdit(String id, ModelMap modelMap) {
 		SysRole sysRole = sysRoleService.queryById(id);
 		modelMap.addAttribute("sysRole", sysRole);
+		
+		List<SysPrivilage> privilages = sysPrivilageService.queryPrivilage();
+		modelMap.addAttribute("privilages", privilages);
+		
+		SysRolePrivilage query = new SysRolePrivilage();
+		query.setRoleId(id);
+		List<SysRolePrivilage> rolePrivilages = sysRolePrivilageService.select(query);
+		modelMap.addAttribute("rolePrivilages", rolePrivilages);
+		
 		return "role/editrole";
 	}
 	
 	@RequestMapping("updateRole")
 	@ResponseBody
-	public ResultInfo updateJob(SysRole sysRole) {
+	public ResultInfo updateJob(SysRole sysRole, String[] pids) {
 		Date date = new Date();
 		sysRole.setUpdateTime(date);
-		sysRoleService.update(sysRole);
+		sysRoleService.update(sysRole, pids);
 		return ResultInfo.instance();
 	}
 	

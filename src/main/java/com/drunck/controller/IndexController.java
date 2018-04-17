@@ -25,6 +25,7 @@ import com.drunck.utils.ImageUtil;
 @Controller
 @RequestMapping("sys")
 public class IndexController extends BaseController {
+	private static final String CAPTCHA = "captcha";
 	@Resource
 	private SysAdminService sysAdminService;
 	@Resource
@@ -47,8 +48,7 @@ public class IndexController extends BaseController {
 	public String imagecode(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		OutputStream os = response.getOutputStream();
 		Map<String, Object> map = ImageUtil.getImageCode(60, 20, os);
-		String captcha = "captcha";
-		request.getSession().setAttribute(captcha, map.get("strEnsure").toString().toLowerCase());
+		request.getSession().setAttribute(IndexController.CAPTCHA, map.get("strEnsure").toString().toLowerCase());
 		try {
 			ImageIO.write((BufferedImage) map.get("image"), "JPEG", os);
 		} catch (IOException e) {

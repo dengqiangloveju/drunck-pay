@@ -13,4 +13,6 @@ public interface SysPrivilageMapper extends BaseMapper<SysPrivilage>{
 	List<SysPrivilage> queryMenuByRoleId(@Param("roleId") String roleId);
 
 	List<SysPrivilage> queryTree();
+
+	List<SysPrivilage> queryChildren(@Param("parentId") String parentId);
 }
