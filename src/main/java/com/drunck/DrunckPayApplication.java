@@ -31,7 +31,7 @@ public class DrunckPayApplication {
 			container.addErrorPages(error401Page, error404Page, error500Page);
 		});
 	}
-
+	
 	public static void main(String[] args) {
 		SpringApplication.run(DrunckPayApplication.class, args);
 	}
